@@ -1,0 +1,42 @@
+stages:
+  - build
+  - test
+  - deploy
+
+Build:
+  stage: build
+  image: docker:stable
+  services:
+    - docker:dind
+  before_script:
+    - echo ${REGISTRY_PASSWORD} | base64 -d | docker login -u ${REGISTRY_USER} --password-stdin
+  script:
+    - docker build --tag ${CONTAINER_IMAGE}:latest --tag ${CONTAINER_IMAGE}:${CI_COMMIT_SHORT_SHA} .
+    - docker push ${CONTAINER_IMAGE}:latest
+    - docker push ${CONTAINER_IMAGE}:${CI_COMMIT_SHORT_SHA}
+  tags:
+    - production
+
+Test:
+  stage: test
+  image: docker:stable
+  services:
+    - docker:dind
+  before_script:
+    - echo ${REGISTRY_PASSWORD} | base64 -d | docker login -u ${REGISTRY_USER} --password-stdin
+  script:
+    - docker pull ${CONTAINER_IMAGE}:${CI_COMMIT_SHORT_SHA}
+    - docker-compose run api npm test
+  tags:
+    - production
+
+Deploy:
+  environment: production
+  stage: deploy
+  before_script:
+    - echo ${REGISTRY_PASSWORD} | base64 -d | docker login -u ${REGISTRY_USER} --password-stdin
+  script:
+    - docker pull ${CONTAINER_IMAGE}:${CI_COMMIT_SHORT_SHA}
+    - docker-compose up -d --force-recreate
+  tags:
+    - production
