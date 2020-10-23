@@ -1,0 +1,12 @@
+{
+  "name": "tavern-keeper-bot",
+  "version": "0.1.0",
+  "description": "Discord bot for the Mournefall D&D Discord server",
+  "main": "index.js",
+  "author": "jordan@cooperplanet.com",
+  "license": "ISC",
+  "dependencies": {
+    "discord.js": "^12.4.0",
+    "dotenv": "^8.2.0"
+  }
+}
