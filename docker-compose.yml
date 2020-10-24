@@ -21,3 +21,10 @@ services:
     volumes:
       - ./app:/app
     env_file: .env
+  api:
+    build: ./api
+    ports:
+      - '3002:3002'
+    volumes:
+      - ./api:/app
+    env_file: .env
