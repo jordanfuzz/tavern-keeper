@@ -12,4 +12,4 @@ COPY . .
 
 EXPOSE 3002
 
-CMD ["node", "."]
+CMD ["node", "./src"]

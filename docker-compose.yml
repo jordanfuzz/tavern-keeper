@@ -23,6 +23,7 @@ services:
     env_file: .env
   api:
     build: ./api
+    command: nodemon ./src
     ports:
       - '3002:3002'
     volumes:
