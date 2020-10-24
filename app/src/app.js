@@ -1,10 +1,19 @@
-import React, { Component } from 'react'
+import React from 'react'
+import axios from 'axios'
 import './app.scss'
 
-class App extends Component {
-  render() {
-    return <div>Hello world!</div>
+const App = () => {
+  const handleButtonClick = () => {
+    axios.get('/api').then(res => {
+      console.log('Server says: ', res.data)
+    })
   }
+  return (
+    <div>
+      <p>Hello world!</p>
+      <button onClick={() => handleButtonClick()}>Press me!</button>
+    </div>
+  )
 }
 
 export default App
