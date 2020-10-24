@@ -14,3 +14,10 @@ services:
     volumes:
       - ./pg-data:/var/lib/postgresql/data
     env_file: .env
+  ui:
+    build: ./app
+    ports:
+      - '3000:3000'
+    volumes:
+      - ./app:/app
+    env_file: .env
