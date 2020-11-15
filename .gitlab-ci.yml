@@ -3,7 +3,7 @@ stages:
   - test
   - deploy
 
-Build:
+build-api:
   stage: build
   image: docker:stable
   services:
@@ -11,13 +11,41 @@ Build:
   before_script:
     - echo ${REGISTRY_PASSWORD} | base64 -d | docker login -u ${REGISTRY_USER} --password-stdin
   script:
-    - docker build --tag ${CONTAINER_IMAGE}:latest --tag ${CONTAINER_IMAGE}:${CI_COMMIT_SHORT_SHA} .
-    - docker push ${CONTAINER_IMAGE}:latest
-    - docker push ${CONTAINER_IMAGE}:${CI_COMMIT_SHORT_SHA}
+    - docker build --tag ${CONTAINER_IMAGE}-api:latest --tag ${CONTAINER_IMAGE}-api:${CI_COMMIT_SHORT_SHA} .
+    - docker push ${CONTAINER_IMAGE}-api:latest
+    - docker push ${CONTAINER_IMAGE}-api:${CI_COMMIT_SHORT_SHA}
   tags:
     - production
 
-Test:
+build-bot:
+  stage: build
+  image: docker:stable
+  services:
+    - docker:dind
+  before_script:
+    - echo ${REGISTRY_PASSWORD} | base64 -d | docker login -u ${REGISTRY_USER} --password-stdin
+  script:
+    - docker build --tag ${CONTAINER_IMAGE}-bot:latest --tag ${CONTAINER_IMAGE}-bot:${CI_COMMIT_SHORT_SHA} .
+    - docker push ${CONTAINER_IMAGE}-bot:latest
+    - docker push ${CONTAINER_IMAGE}-bot:${CI_COMMIT_SHORT_SHA}
+  tags:
+    - production
+
+build-ui:
+  stage: build
+  image: docker:stable
+  services:
+    - docker:dind
+  before_script:
+    - echo ${REGISTRY_PASSWORD} | base64 -d | docker login -u ${REGISTRY_USER} --password-stdin
+  script:
+    - docker build --tag ${CONTAINER_IMAGE}-ui:latest --tag ${CONTAINER_IMAGE}-ui:${CI_COMMIT_SHORT_SHA} .
+    - docker push ${CONTAINER_IMAGE}-ui:latest
+    - docker push ${CONTAINER_IMAGE}-ui:${CI_COMMIT_SHORT_SHA}
+  tags:
+    - production
+
+test:
   stage: test
   image: docker:stable
   services:
@@ -25,18 +53,22 @@ Test:
   before_script:
     - echo ${REGISTRY_PASSWORD} | base64 -d | docker login -u ${REGISTRY_USER} --password-stdin
   script:
-    - docker pull ${CONTAINER_IMAGE}:${CI_COMMIT_SHORT_SHA}
-    - docker-compose run api npm test
+    - docker pull ${CONTAINER_IMAGE}-api:${CI_COMMIT_SHORT_SHA}
+    - docker-compose -f docker-compose.production.yml run api npm test
+    - docker pull ${CONTAINER_IMAGE}-ui:${CI_COMMIT_SHORT_SHA}
+    - docker-compose -f docker-compose.production.yml run ui npm test
+    - docker pull ${CONTAINER_IMAGE}-bot:${CI_COMMIT_SHORT_SHA}
+    - docker-compose -f docker-compose.production.yml run ui npm test
   tags:
     - production
 
-Deploy:
+deploy:
   environment: production
   stage: deploy
   before_script:
     - echo ${REGISTRY_PASSWORD} | base64 -d | docker login -u ${REGISTRY_USER} --password-stdin
   script:
     - docker pull ${CONTAINER_IMAGE}:${CI_COMMIT_SHORT_SHA}
-    - docker-compose up -d --force-recreate
+    - docker-compose -f docker-compose.production.yml up -d --force-recreate
   tags:
     - production
