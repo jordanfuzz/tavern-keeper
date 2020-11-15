@@ -1,10 +1,16 @@
 const express = require('express')
 const app = express()
 const port = 3002
+const pgPool = require('./pg-pool')
+const camelize = require('camelize')
 // const AWS = require('aws-sdk')
 
-app.get('/', (req, res) => res.send('Hello my good friends!'))
-app.get('/api', (req, res) => res.send('Howdy, UI!'))
+app.get('/api/npcs', async (req, res) => {
+  const npcs = await pgPool
+    .query('select * from npcs;')
+    .then(res => camelize(res.rows))
+  res.send(npcs)
+})
 
 // app.post('/api/images', function (request, response) {
 //   AWS.config.update(config.awsConfig)
