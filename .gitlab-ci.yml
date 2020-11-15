@@ -39,7 +39,7 @@ build-ui:
   before_script:
     - echo ${REGISTRY_PASSWORD} | base64 -d | docker login -u ${REGISTRY_USER} --password-stdin
   script:
-    - docker build --tag ${CONTAINER_IMAGE}-ui:latest --tag ${CONTAINER_IMAGE}-ui:${CI_COMMIT_SHORT_SHA} -f ./app/Dockerfile.prod
+    - docker build --tag ${CONTAINER_IMAGE}-ui:latest --tag ${CONTAINER_IMAGE}-ui:${CI_COMMIT_SHORT_SHA} -f ./app/Dockerfile.prod ./app
     - docker push ${CONTAINER_IMAGE}-ui:latest
     - docker push ${CONTAINER_IMAGE}-ui:${CI_COMMIT_SHORT_SHA}
   tags:
