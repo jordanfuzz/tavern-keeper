@@ -6,6 +6,7 @@ const camelize = require('camelize')
 // const AWS = require('aws-sdk')
 
 app.get('/api/npcs', async (req, res) => {
+  console.log('Got here!')
   const npcs = await pgPool
     .query('select * from npcs;')
     .then(res => camelize(res.rows))
