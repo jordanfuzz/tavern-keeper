@@ -20,4 +20,5 @@ module.exports = {
     password: e.POSTGRES_PASSWORD,
   },
   isDevelopment,
+  port: 3002,
 }
