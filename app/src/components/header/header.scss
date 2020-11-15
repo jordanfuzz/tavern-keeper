@@ -1,0 +1,22 @@
+.header-container {
+  height: 150px;
+  margin: 20px auto;
+  width: 450px;
+}
+
+.header-image {
+  height: 100px;
+  width: 100px;
+  margin-top: 20px;
+  border-radius: 100%;
+  display: inline-block;
+  vertical-align: middle;
+}
+
+.header-text {
+  display: inline-block;
+  margin-left: 30px;
+  margin-top: 50px;
+  vertical-align: middle;
+  font-size: 40px;
+}

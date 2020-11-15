@@ -1,17 +1,21 @@
 import React from 'react'
-import axios from 'axios'
+import NpcCard from './components/npc-card/npc-card'
+import Header from './components/header/header'
 import './app.scss'
 
 const App = () => {
-  const handleButtonClick = () => {
-    axios.get('/api').then(res => {
-      console.log('Server says: ', res.data)
-    })
-  }
   return (
-    <div>
-      <p>Hello world!</p>
-      <button onClick={() => handleButtonClick()}>Press me!</button>
+    <div className="background">
+      <Header />
+      <div className="card-container">
+        <NpcCard />
+        <NpcCard />
+        <NpcCard />
+        <NpcCard />
+        <NpcCard />
+        <NpcCard />
+        <NpcCard />
+      </div>
     </div>
   )
 }
