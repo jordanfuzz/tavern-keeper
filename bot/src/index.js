@@ -1,11 +1,10 @@
 const Discord = require('discord.js')
 const bot = new Discord.Client()
-const pgPool = require('./pg-pool')
 
 const config = require('../config')
 
-const getSomethingFromDatabase = async () => {
-  return await pgPool.query('select * from npcs;').then(res => res.rows[0])
+const commands = {
+  roll: require('./commands/dice-roller'),
 }
 
 bot.on('ready', () => {
@@ -14,9 +13,22 @@ bot.on('ready', () => {
 
 bot.on('message', async message => {
   const messageText = message.content
-  console.log(messageText)
-  const foo = await getSomethingFromDatabase()
-  console.log(foo)
+  if (messageText.substring(0, 1) === '!') {
+    const context = {
+      guild: bot.guilds.cache.get(config.guildId),
+      message,
+      isDirectMessage: !message.guild,
+    }
+
+    const command = messageText.includes(' ')
+      ? messageText.substring(1, messageText.indexOf(' '))
+      : messageText.substring(1)
+    const args = messageText.substring(messageText.indexOf(' ') + 1)
+
+    if (commands[command.toLowerCase()]) {
+      commands[command.toLowerCase()](args, context)
+    }
+  }
 })
 
 bot.login(config.botToken)
