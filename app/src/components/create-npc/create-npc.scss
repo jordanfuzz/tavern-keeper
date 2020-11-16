@@ -1,0 +1,52 @@
+.create-npc-container {
+  margin: 50px auto;
+  width: 70%;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.left-container {
+  width: 500px;
+  height: 500px;
+  background-color: #6d210f;
+  border-radius: 7%;
+  margin: 20px;
+}
+
+.upload-image-placeholder {
+  background-color: #421307;
+  width: 300px;
+  height: 300px;
+  margin: 20px auto;
+  border-radius: 100%;
+  display: block;
+}
+
+.image-upload-input {
+  display: block;
+  margin: 20px auto;
+}
+
+.crop-window {
+  width: 500px;
+  height: 600px;
+  background-color: #6d210f;
+  border-radius: 7%;
+  margin: 20px;
+}
+
+.image-upload {
+  width: 300px;
+  height: 300px;
+  margin: 20px auto;
+  display: block;
+}
+
+.preview-canvas {
+  width: 200px;
+  height: 200px;
+  margin: 20px auto;
+  display: block;
+}

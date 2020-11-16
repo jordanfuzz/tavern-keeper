@@ -1,13 +1,16 @@
 import React from 'react'
-import Header from './components/header/header'
-import CardList from './components/card-list/card-list'
+import { Switch, Route } from 'react-router-dom'
+import Home from './components/home/home'
+import CreateNpc from './components/create-npc/create-npc'
 import './app.scss'
 
 const App = () => {
   return (
     <div className="background">
-      <Header />
-      <CardList />
+      <Switch>
+        <Route exact path="/" component={Home} />
+        <Route exact path="/create-npc" component={CreateNpc} />
+      </Switch>
     </div>
   )
 }

@@ -1,0 +1,166 @@
+import React, { useState, useRef, useEffect, useCallback } from 'react'
+import ReactCrop from 'react-image-crop'
+import 'react-image-crop/lib/ReactCrop.scss'
+import './create-npc.scss'
+
+const defaultNpcData = {
+  name: '',
+  avatarUrl: '',
+}
+
+const defaultImageData = {
+  image: null,
+  file: null,
+  croppedImageSrc: null,
+  imageS3Url: null,
+}
+
+const defaultCrop = {
+  unit: '%',
+  width: '30',
+  aspect: 1,
+}
+
+const pixelRatio = window.devicePixelRatio || 1
+
+const CreateNpc = props => {
+  const [npcData, setNpcData] = useState(defaultNpcData)
+  const [imageData, setImageData] = useState(defaultImageData)
+  const [crop, setCrop] = useState(defaultCrop)
+  const [completedCrop, setCompletedCrop] = useState(null)
+  const imageRef = useRef(null)
+  const previewCanvasRef = useRef(null)
+
+  const handleNpcNameChange = value => {
+    setNpcData(value)
+  }
+
+  const handleImageUpload = event => {
+    let file = event.target.files[0]
+    let reader = new FileReader()
+    reader.onloadend = () => {
+      const image = reader.result
+      setImageData(
+        Object.assign({}, imageData, {
+          image,
+          file,
+        })
+      )
+    }
+    reader.readAsDataURL(file)
+  }
+
+  const getResizedCanvas = (canvas, newWidth, newHeight) => {
+    const tempCanvas = document.createElement('canvas')
+    tempCanvas.width = newWidth
+    tempCanvas.height = newHeight
+
+    const ctx = tempCanvas.getContext('2d')
+    ctx.drawImage(
+      canvas,
+      0,
+      0,
+      canvas.width,
+      canvas.height,
+      0,
+      0,
+      newWidth,
+      newHeight
+    )
+
+    return tempCanvas
+  }
+
+  const saveCrop = (previewCanvas, crop) => {
+    if (!crop || !previewCanvas) {
+      return
+    }
+
+    const canvas = getResizedCanvas(previewCanvas, crop.width, crop.height)
+    const imageSrc = canvas.toDataURL('image/png')
+
+    setImageData(Object.assign({}, imageData, { croppedImageSrc: imageSrc }))
+  }
+
+  const onLoad = useCallback(image => {
+    imageRef.current = image
+  }, [])
+
+  useEffect(() => {
+    if (!completedCrop || !previewCanvasRef.current || !imageRef.current) {
+      return
+    }
+
+    const image = imageRef.current
+    const canvas = previewCanvasRef.current
+    const crop = completedCrop
+
+    const scaleX = image.naturalWidth / image.width
+    const scaleY = image.naturalHeight / image.height
+    const ctx = canvas.getContext('2d')
+
+    canvas.width = crop.width * pixelRatio
+    canvas.height = crop.height * pixelRatio
+
+    ctx.setTransform(pixelRatio, 0, 0, pixelRatio, 0, 0)
+    ctx.imageSmoothingQuality = 'high'
+
+    ctx.drawImage(
+      image,
+      crop.x * scaleX,
+      crop.y * scaleY,
+      crop.width * scaleX,
+      crop.height * scaleY,
+      0,
+      0,
+      crop.width,
+      crop.height
+    )
+  }, [completedCrop])
+
+  return (
+    <div className="create-npc-container">
+      <div className="left-container">
+        <div className="upload-image-placeholder" />
+        <input
+          className="image-upload-input"
+          type="file"
+          accept="image/*"
+          onChange={e => handleImageUpload(e)}
+        />
+        <input
+          type="text"
+          value={npcData.name}
+          onChange={e => handleNpcNameChange(e.target.value)}
+          className="npc-name-input"
+        />
+      </div>
+      <div className="crop-window">
+        <ReactCrop
+          src={imageData.image}
+          onImageLoaded={onLoad}
+          crop={crop}
+          onChange={e => setCrop(e)}
+          onComplete={e => setCompletedCrop(e)}
+        />
+        <div>
+          <canvas
+            className="preview-canvas"
+            ref={previewCanvasRef}
+            style={{
+              width: Math.round(completedCrop?.width ?? 0),
+              height: Math.round(completedCrop?.height ?? 0),
+            }}
+          />
+        </div>
+        <button
+          onClick={e => saveCrop(previewCanvasRef.current, completedCrop)}
+        >
+          Save
+        </button>
+      </div>
+    </div>
+  )
+}
+
+export default CreateNpc
