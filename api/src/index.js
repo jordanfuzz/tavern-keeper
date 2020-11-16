@@ -1,11 +1,13 @@
 const express = require('express')
 const app = express()
 const { v4: uuidv4 } = require('uuid')
+const AWS = require('aws-sdk')
+const bodyParser = require('body-parser')
 
 const config = require('../config')
 const npcRouter = require('./npcs/npc-routes')
-const AWS = require('aws-sdk')
 
+app.use(bodyParser.json())
 app.use('/api', npcRouter)
 
 app.post('/api/images', function (request, response) {

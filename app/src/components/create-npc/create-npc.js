@@ -1,5 +1,6 @@
 import React, { useState, useRef, useEffect, useCallback } from 'react'
 import ReactCrop from 'react-image-crop'
+import { Redirect } from 'react-router-dom'
 import 'react-image-crop/lib/ReactCrop.scss'
 import './create-npc.scss'
 import axios from 'axios'
@@ -12,7 +13,6 @@ const defaultNpcData = {
 const defaultImageData = {
   image: null,
   file: null,
-  imageS3Url: null,
 }
 
 const defaultCrop = {
@@ -28,11 +28,20 @@ const CreateNpc = props => {
   const [imageData, setImageData] = useState(defaultImageData)
   const [crop, setCrop] = useState(defaultCrop)
   const [completedCrop, setCompletedCrop] = useState(null)
+  const [shouldRedirect, setShouldRedirect] = useState(false)
   const imageRef = useRef(null)
   const previewCanvasRef = useRef(null)
 
   const handleNpcNameChange = value => {
-    setNpcData(value)
+    setNpcData(Object.assign({}, npcData, { name: value }))
+  }
+
+  const handleSaveNpc = () => {
+    if (!npcData.name || !npcData.avatarUrl) return
+
+    axios.post('/api/npc', npcData).then(res => {
+      if (res.status === 200) setShouldRedirect(true)
+    })
   }
 
   const handleImageUpload = event => {
@@ -84,9 +93,9 @@ const CreateNpc = props => {
             headers: { 'content-type': 'image/png' },
           })
           .then(res => {
-            setImageData(
-              Object.assign({}, imageData, {
-                imageS3Url: res.data,
+            setNpcData(
+              Object.assign({}, npcData, {
+                avatarUrl: res.data,
               })
             )
           })
@@ -132,11 +141,13 @@ const CreateNpc = props => {
     )
   }, [completedCrop])
 
+  if (shouldRedirect) return <Redirect to="/" />
+
   return (
     <div className="create-npc-container">
       <div className="left-container">
-        {imageData.imageS3Url ? (
-          <img src={imageData.imageS3Url} className="upload-image" />
+        {npcData.avatarUrl ? (
+          <img src={npcData.avatarUrl} className="upload-image" />
         ) : (
           <div className="upload-image-placeholder" />
         )}
@@ -152,6 +163,7 @@ const CreateNpc = props => {
           onChange={e => handleNpcNameChange(e.target.value)}
           className="npc-name-input"
         />
+        <button onClick={() => handleSaveNpc()}>Finish</button>
       </div>
       <div className="crop-window">
         <ReactCrop
@@ -172,7 +184,7 @@ const CreateNpc = props => {
           />
         </div>
         <button
-          onClick={e => saveCrop(previewCanvasRef.current, completedCrop)}
+          onClick={() => saveCrop(previewCanvasRef.current, completedCrop)}
         >
           Save
         </button>
