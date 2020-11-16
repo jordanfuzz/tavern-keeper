@@ -6,14 +6,20 @@ import './card-list.scss'
 
 const defaultNPCs = []
 
-const renderNpcCards = npcs => {
-  if (npcs && npcs.length) {
-    return npcs.map((npc, i) => <NpcCard key={i} npcData={npc} />)
-  }
-}
-
 const CardList = props => {
   const [npcs, setNpcs] = useState(defaultNPCs)
+
+  const renderNpcCards = npcs => {
+    if (npcs && npcs.length) {
+      return npcs.map((npc, i) => (
+        <NpcCard
+          key={i}
+          npcData={npc}
+          onClick={() => props.handleNpcSelect(npc)}
+        />
+      ))
+    }
+  }
 
   useEffect(() => {
     axios.get('/api/npcs').then(res => {

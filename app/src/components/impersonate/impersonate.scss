@@ -1,0 +1,40 @@
+.impersonate-container {
+  margin: 50px auto;
+  width: 70%;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.left-container {
+  width: 500px;
+  height: 500px;
+  background-color: #6d210f;
+  border-radius: 7%;
+  margin: 20px;
+  position: relative;
+}
+
+.back-button {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+}
+
+.avatar-image {
+  background-color: #421307;
+  width: 300px;
+  height: 300px;
+  margin: 60px auto;
+  border-radius: 100%;
+  display: block;
+}
+
+.right-container {
+  width: 500px;
+  height: 600px;
+  background-color: #6d210f;
+  border-radius: 7%;
+  margin: 20px;
+}
