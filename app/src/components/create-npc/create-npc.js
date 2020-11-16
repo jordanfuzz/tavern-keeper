@@ -2,6 +2,7 @@ import React, { useState, useRef, useEffect, useCallback } from 'react'
 import ReactCrop from 'react-image-crop'
 import 'react-image-crop/lib/ReactCrop.scss'
 import './create-npc.scss'
+import axios from 'axios'
 
 const defaultNpcData = {
   name: '',
@@ -11,7 +12,6 @@ const defaultNpcData = {
 const defaultImageData = {
   image: null,
   file: null,
-  croppedImageSrc: null,
   imageS3Url: null,
 }
 
@@ -77,9 +77,23 @@ const CreateNpc = props => {
     }
 
     const canvas = getResizedCanvas(previewCanvas, crop.width, crop.height)
-    const imageSrc = canvas.toDataURL('image/png')
-
-    setImageData(Object.assign({}, imageData, { croppedImageSrc: imageSrc }))
+    canvas.toBlob(
+      blob => {
+        axios
+          .post('/api/images', blob, {
+            headers: { 'content-type': 'image/png' },
+          })
+          .then(res => {
+            setImageData(
+              Object.assign({}, imageData, {
+                imageS3Url: res.data,
+              })
+            )
+          })
+      },
+      'image/png',
+      1
+    )
   }
 
   const onLoad = useCallback(image => {
@@ -121,7 +135,11 @@ const CreateNpc = props => {
   return (
     <div className="create-npc-container">
       <div className="left-container">
-        <div className="upload-image-placeholder" />
+        {imageData.imageS3Url ? (
+          <img src={imageData.imageS3Url} className="upload-image" />
+        ) : (
+          <div className="upload-image-placeholder" />
+        )}
         <input
           className="image-upload-input"
           type="file"

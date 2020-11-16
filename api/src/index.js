@@ -1,5 +1,6 @@
 const express = require('express')
 const app = express()
+const { v4: uuidv4 } = require('uuid')
 
 const config = require('../config')
 const npcRouter = require('./npcs/npc-routes')
@@ -12,7 +13,7 @@ app.post('/api/images', function (request, response) {
   const s3 = new AWS.S3()
   const s3Params = {
     Bucket: 'tavern-keeper',
-    Key: uuid(),
+    Key: uuidv4(),
     ContentType: request.get('Content-type'),
     ContentLength: request.get('Content-length'),
     Body: request,
@@ -23,6 +24,7 @@ app.post('/api/images', function (request, response) {
     { patSize: 5 * 1024 * 1024, queueSize: 1 },
     (err, data) => {
       response.status(200).send(data.Location)
+      if (err) console.log(err)
     }
   )
 })
