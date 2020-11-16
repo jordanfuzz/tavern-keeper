@@ -1,12 +1,15 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 import './new-card.scss'
 
 const NewCard = props => {
   return (
-    <div className="npc-card">
-      <div className="image-placeholder" />
-      <span className="npc-name">+</span>
-    </div>
+    <Link to="/create-npc">
+      <span className="new-npc-card">
+        <div className="new-image-placeholder" />
+        <span className="new-npc-name">+</span>
+      </span>
+    </Link>
   )
 }
 
