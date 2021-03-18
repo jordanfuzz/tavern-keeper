@@ -1,9 +1,20 @@
 import React, { useState } from 'react'
 import './impersonate.scss'
+import axios from 'axios'
 
 const Impersonate = props => {
   const [messageText, setMessageText] = useState('')
   const { name, avatarUrl } = props.npcData
+
+  const sendMessage = () => {
+    axios
+      .post('/api/channels/send-message', {
+        message: messageText,
+        name,
+        avatarUrl,
+      })
+      .then(res => console.log(res.data))
+  }
 
   return (
     <div className="impersonate-container">
@@ -15,6 +26,7 @@ const Impersonate = props => {
         <span className="npc-name">{name}</span>
       </div>
       <div className="right-container">
+        <span>Posting to {props.activeChannel}</span>
         <div className="message-container">
           <label className="message-label" htmlFor="npc-message">
             Message:
@@ -26,6 +38,7 @@ const Impersonate = props => {
             onChange={e => setMessageText(e.target.value)}
           />
         </div>
+        <button onClick={sendMessage}>Send Message!</button>
       </div>
     </div>
   )

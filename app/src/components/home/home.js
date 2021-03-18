@@ -20,7 +20,11 @@ const Home = () => {
   return (
     <div className="background">
       {selectedNpc ? (
-        <Impersonate npcData={selectedNpc} handleClose={handleClose} />
+        <Impersonate
+          activeChannel={activeChannel}
+          npcData={selectedNpc}
+          handleClose={handleClose}
+        />
       ) : (
         <div>
           <Header />
