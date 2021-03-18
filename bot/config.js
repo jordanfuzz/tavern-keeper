@@ -16,4 +16,5 @@ module.exports = {
   },
   botToken: e.DISCORD_BOT_TOKEN,
   isDevelopment,
+  guildId: isDevelopment ? '777407426159968276' : '504517457805836290',
 }

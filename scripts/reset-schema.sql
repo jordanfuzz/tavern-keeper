@@ -1,9 +1,22 @@
 drop table if exists npcs;
+drop table if exists channels;
+
+drop type if exists channel_type;
+
+create type channel_type as enum('category', 'text');
 
 create table npcs (
   id uuid not null primary key,
   name text not null,
   avatar_url text not null
+);
+
+create table channels (
+  id text not null primary key,
+  name text not null,
+  category_id text, 
+  channel_type channel_type,
+  has_webhook boolean not null default 'false'
 );
 
 insert into npcs (id, name, avatar_url)

@@ -5,6 +5,7 @@ const config = require('../config')
 
 const commands = {
   roll: require('./commands/dice-roller'),
+  sync: require('./commands/sync'),
 }
 
 bot.on('ready', () => {

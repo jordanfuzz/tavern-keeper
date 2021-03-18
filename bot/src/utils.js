@@ -4,6 +4,11 @@ const formatReply = (replyMessage, isDirectMessage = false) => {
     : replyMessage
 }
 
+const isUserAdmin = message => {
+  return message.author.id === '165332337985323008'
+}
+
 module.exports = {
   formatReply,
+  isUserAdmin,
 }
