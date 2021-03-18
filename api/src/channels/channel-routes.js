@@ -3,10 +3,11 @@ const router = express.Router()
 const channelsRepository = require('./channels-repository')
 const axios = require('axios')
 const { discordWebhookId, discordWebhookToken } = require('../../config')
+const { organizeChannelsByCategory } = require('../utils')
 
 router.get('/channels', async (req, res) => {
   const channels = await channelsRepository.getAll()
-  res.status(200).send(channels)
+  res.status(200).send(organizeChannelsByCategory(channels))
 })
 
 router.patch('/channels/webhook', async (req, res) => {

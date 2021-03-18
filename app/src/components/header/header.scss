@@ -1,13 +1,14 @@
 .header-container {
-  height: 150px;
-  margin: 20px auto;
-  width: 450px;
+  height: 100px;
+  width: 100%;
+  background-color: #6d210f;
 }
 
 .header-image {
-  height: 100px;
-  width: 100px;
-  margin-top: 20px;
+  height: 75px;
+  width: 75px;
+  margin-top: 10px;
+  margin-left: 75px;
   border-radius: 100%;
   display: inline-block;
   vertical-align: middle;
@@ -16,7 +17,7 @@
 .header-text {
   display: inline-block;
   margin-left: 30px;
-  margin-top: 50px;
+  margin-top: 30px;
   vertical-align: middle;
-  font-size: 40px;
+  font-size: 32px;
 }

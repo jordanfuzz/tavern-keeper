@@ -1,8 +1,9 @@
 import React, { useState } from 'react'
 import Header from '../header/header'
-import CardList from '../card-list/card-list'
 import './home.scss'
+import CardList from '../card-list/card-list'
 import Impersonate from '../impersonate/impersonate'
+import ChannelList from '../channel-list/channel-list'
 
 const Home = () => {
   const [selectedNpc, setSelectedNpc] = useState(null)
@@ -22,7 +23,10 @@ const Home = () => {
       ) : (
         <div>
           <Header />
-          <CardList handleNpcSelect={handleNpcSelect} />
+          <div className="main-container">
+            <ChannelList />
+            <CardList handleNpcSelect={handleNpcSelect} />
+          </div>
         </div>
       )}
     </div>

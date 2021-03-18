@@ -1,0 +1,27 @@
+.channel-container {
+  width: 300px;
+  background-color: #6d210f;
+  border-radius: 18px/20px;
+  margin: 50px auto;
+  padding: 10px 0;
+}
+
+.channel-header {
+  font-size: 24px;
+  display: block;
+}
+
+.channel {
+  display: block;
+  width: 270px;
+  margin: 10px;
+  background-color: #421307;
+  font-size: 18px;
+  border-radius: 7px/9px;
+  padding: 1px;
+  cursor: pointer;
+}
+
+.channel:hover {
+  background-color: #e49d32;
+}
