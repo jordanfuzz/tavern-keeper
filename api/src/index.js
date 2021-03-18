@@ -6,9 +6,11 @@ const bodyParser = require('body-parser')
 
 const config = require('../config')
 const npcRouter = require('./npcs/npc-routes')
+const channelRouter = require('./channels/channel-routes')
 
 app.use(bodyParser.json())
 app.use('/api', npcRouter)
+app.use('/api', channelRouter)
 
 app.post('/api/images', function (request, response) {
   AWS.config.update(config.awsConfig)

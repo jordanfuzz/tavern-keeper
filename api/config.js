@@ -19,6 +19,8 @@ module.exports = {
     database: e.POSTGRES_DB,
     password: e.POSTGRES_PASSWORD,
   },
+  discordWebhookId: e.DISCORD_WEBHOOK_ID,
+  discordWebhookToken: e.DISCORD_WEBHOOK_TOKEN,
   isDevelopment,
   port: 3002,
 }
