@@ -7,6 +7,7 @@ import ChannelList from '../channel-list/channel-list'
 
 const Home = () => {
   const [selectedNpc, setSelectedNpc] = useState(null)
+  const [activeChannel, setActiveChannel] = useState(null)
 
   const handleNpcSelect = npcData => {
     setSelectedNpc(npcData)
@@ -24,7 +25,7 @@ const Home = () => {
         <div>
           <Header />
           <div className="main-container">
-            <ChannelList />
+            <ChannelList setActiveChannel={setActiveChannel} />
             <CardList handleNpcSelect={handleNpcSelect} />
           </div>
         </div>

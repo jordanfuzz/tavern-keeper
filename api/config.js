@@ -21,6 +21,7 @@ module.exports = {
   },
   discordWebhookId: e.DISCORD_WEBHOOK_ID,
   discordWebhookToken: e.DISCORD_WEBHOOK_TOKEN,
+  botToken: e.DISCORD_BOT_TOKEN,
   isDevelopment,
   port: 3002,
 }
