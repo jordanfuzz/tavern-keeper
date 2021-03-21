@@ -26,7 +26,7 @@
   background-color: #421307;
   width: 300px;
   height: 300px;
-  margin: 60px auto;
+  margin: 60px auto 35px auto;
   border-radius: 100%;
   display: block;
 }
@@ -47,14 +47,36 @@
 
 .message-label {
   margin-left: 15px;
+  margin-bottom: 10px;
+  font-size: 24px;
+  display: block;
 }
 
 .npc-message {
-  width: 90%;
+  width: 80%;
   padding: 12px;
   height: 100px;
-  margin: 0 auto;
+  margin: 0 auto 20px auto;
   border: 1px solid #ccc;
   border-radius: 4px;
   resize: none;
+  display: block;
+}
+
+.impersonate-npc-name {
+  font-size: 24px;
+  font-weight: bold;
+}
+
+.posting-to {
+  margin-top: 15px;
+  font-size: 18px;
+  display: block;
+}
+
+.active-channel-name {
+  display: block;
+  font-size: 24px;
+  font-weight: bold;
+  margin-top: 5px;
 }

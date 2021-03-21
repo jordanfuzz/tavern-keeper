@@ -23,10 +23,11 @@ const Impersonate = props => {
           Back
         </button>
         <img src={avatarUrl} className="avatar-image" />
-        <span className="npc-name">{name}</span>
+        <span className="impersonate-npc-name">{name}</span>
       </div>
       <div className="right-container">
-        <span>Posting to {props.activeChannel}</span>
+        <span className="posting-to">Posting to:</span>
+        <span className="active-channel-name">{props.activeChannel}</span>
         <div className="message-container">
           <label className="message-label" htmlFor="npc-message">
             Message:
