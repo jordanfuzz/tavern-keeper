@@ -22,6 +22,10 @@ module.exports = {
   discordWebhookId: e.DISCORD_WEBHOOK_ID,
   discordWebhookToken: e.DISCORD_WEBHOOK_TOKEN,
   botToken: e.DISCORD_BOT_TOKEN,
+  jwtSecret: e.JWT_SECRET,
+  cookieOptions: {
+    maxAge: 1000 * 60 * 60 * 24 * 7,
+  },
   isDevelopment,
   port: 3002,
 }

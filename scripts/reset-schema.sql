@@ -1,5 +1,6 @@
 drop table if exists npcs;
 drop table if exists channels;
+drop table if exists users;
 
 drop type if exists channel_type;
 
@@ -17,6 +18,12 @@ create table channels (
   category_id text, 
   channel_type channel_type,
   has_webhook boolean not null default 'false'
+);
+
+create table users (
+  id uuid primary key,
+  username text not null,
+  password text not null
 );
 
 insert into npcs (id, name, avatar_url)

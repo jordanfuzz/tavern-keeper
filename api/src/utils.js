@@ -1,3 +1,6 @@
+const jwt = require('jsonwebtoken')
+const { jwtSecret } = require('../config')
+
 const organizeChannelsByCategory = channels => {
   let categorizedChannelsDictionary = {}
 
@@ -10,6 +13,14 @@ const organizeChannelsByCategory = channels => {
   return categorizedChannelsDictionary
 }
 
+const generateJwt = userData => {
+  const unsignedPayload = {
+    userId: userData.id,
+  }
+  return jwt.sign(unsignedPayload, jwtSecret, { expiresIn: '7d' })
+}
+
 module.exports = {
+  generateJwt,
   organizeChannelsByCategory,
 }

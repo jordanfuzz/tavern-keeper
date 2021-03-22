@@ -2,15 +2,18 @@ const express = require('express')
 const app = express()
 const { v4: uuidv4 } = require('uuid')
 const AWS = require('aws-sdk')
-const bodyParser = require('body-parser')
+const cookieParser = require('cookie-parser')
 
 const config = require('../config')
 const npcRouter = require('./npcs/npc-routes')
 const channelRouter = require('./channels/channel-routes')
+const userRouter = require('./users/user-routes')
 
-app.use(bodyParser.json())
+app.use(express.json())
+app.use(cookieParser())
 app.use('/api', npcRouter)
 app.use('/api', channelRouter)
+app.use('/api', userRouter)
 
 app.post('/api/images', function (request, response) {
   AWS.config.update(config.awsConfig)
