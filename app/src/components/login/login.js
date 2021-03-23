@@ -3,6 +3,7 @@ import { Redirect } from 'react-router-dom'
 import './login.scss'
 import { useUser } from '../../context/user-context'
 import axios from 'axios'
+import mug from '../../../media/mug.png'
 
 const Login = () => {
   const [username, setUsername] = useState('')
@@ -34,19 +35,30 @@ const Login = () => {
     <div className="background">
       {userId ? <Redirect to="/" /> : null}
       <div className="form-container">
-        <label>Username</label>
-        <input
-          type="text"
-          onChange={e => handleUsernameChange(e.target.value)}
-          value={username}
-        />
-        <label>Password</label>
-        <input
-          type="password"
-          onChange={e => handlePasswordChange(e.target.value)}
-          value={password}
-        />
-        <button onClick={handleLogin}>Login</button>
+        <img src={mug} className="header-image-small" />
+        <h1 className="header-text-small">Tavern Keeper</h1>
+        <div className="single-input-container">
+          <label className="form-label">Username:</label>
+          <input
+            className="text-input"
+            type="text"
+            onChange={e => handleUsernameChange(e.target.value)}
+            value={username}
+          />
+        </div>
+        <div className="single-input-container">
+          <label className="form-label">Password: </label>
+          <input
+            className="text-input"
+            type="password"
+            onChange={e => handlePasswordChange(e.target.value)}
+            value={password}
+          />
+        </div>
+
+        <button className="login-button" onClick={handleLogin}>
+          Login
+        </button>
         {message ? <span className="login-message">{message}</span> : null}
       </div>
     </div>
