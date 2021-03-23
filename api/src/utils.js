@@ -20,7 +20,12 @@ const generateJwt = userData => {
   return jwt.sign(unsignedPayload, jwtSecret, { expiresIn: '7d' })
 }
 
+function getUserIdFromJwt(userJwt) {
+  return jwt.verify(userJwt, jwtSecret).userId
+}
+
 module.exports = {
   generateJwt,
   organizeChannelsByCategory,
+  getUserIdFromJwt,
 }

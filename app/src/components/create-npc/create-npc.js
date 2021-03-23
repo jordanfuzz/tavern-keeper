@@ -1,6 +1,7 @@
 import React, { useState, useRef, useEffect, useCallback } from 'react'
 import ReactCrop from 'react-image-crop'
 import { Redirect } from 'react-router-dom'
+import { useUser } from '../../context/user-context'
 import 'react-image-crop/lib/ReactCrop.scss'
 import './create-npc.scss'
 import axios from 'axios'
@@ -23,7 +24,7 @@ const defaultCrop = {
 
 const pixelRatio = window.devicePixelRatio || 1
 
-const CreateNpc = props => {
+const CreateNpc = () => {
   const [npcData, setNpcData] = useState(defaultNpcData)
   const [imageData, setImageData] = useState(defaultImageData)
   const [crop, setCrop] = useState(defaultCrop)
@@ -31,6 +32,7 @@ const CreateNpc = props => {
   const [shouldRedirect, setShouldRedirect] = useState(false)
   const imageRef = useRef(null)
   const previewCanvasRef = useRef(null)
+  const { userId } = useUser()
 
   const handleNpcNameChange = value => {
     setNpcData(Object.assign({}, npcData, { name: value }))
@@ -145,6 +147,7 @@ const CreateNpc = props => {
 
   return (
     <div className="create-npc-container">
+      {!userId ? <Redirect to="/login" /> : null}
       <div className="left-container">
         {npcData.avatarUrl ? (
           <img src={npcData.avatarUrl} className="upload-image" />

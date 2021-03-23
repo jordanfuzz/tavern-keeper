@@ -1,11 +1,18 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
+import { Redirect } from 'react-router-dom'
 import './login.scss'
+import { useUser } from '../../context/user-context'
 import axios from 'axios'
 
 const Login = () => {
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
   const [message, setMessage] = useState(null)
+  const { userId, setUserId } = useUser()
+
+  useEffect(() => {
+    axios.get('/api/user').then(res => setUserId(res.data?.id))
+  }, [])
 
   const handlePasswordChange = value => {
     setPassword(value)
@@ -17,13 +24,15 @@ const Login = () => {
 
   const handleLogin = () => {
     if (username && password)
-      axios
-        .post('/api/login', { password, username })
-        .then(res => setMessage(res.data.message))
+      axios.post('/api/login', { password, username }).then(res => {
+        if (res.data.userId) setUserId(res.data.id)
+        else setMessage(res.data.message)
+      })
   }
 
   return (
     <div className="background">
+      {userId ? <Redirect to="/" /> : null}
       <div className="form-container">
         <label>Username</label>
         <input

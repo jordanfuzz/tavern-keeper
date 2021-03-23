@@ -16,6 +16,16 @@ const getByUsername = (username, password) => {
     })
 }
 
+const getById = userId => {
+  return pgPool
+    .query(`select id from users where id = $1;`, [userId])
+    .then(res => {
+      if (!res.rows[0]) throw 'User not found'
+      return camelize(res.rows[0])
+    })
+}
+
 module.exports = {
   getByUsername,
+  getById,
 }

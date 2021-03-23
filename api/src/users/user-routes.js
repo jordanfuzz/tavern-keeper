@@ -1,7 +1,7 @@
 const express = require('express')
 const router = express.Router()
 
-const { generateJwt } = require('../utils')
+const { generateJwt, getUserIdFromJwt } = require('../utils')
 const { cookieOptions } = require('../../config')
 const usersRepository = require('./users-repository')
 
@@ -22,6 +22,15 @@ router.post('/login', (req, res) => {
         console.log('Error:', err)
         res.status(500).send({ message: 'An error has occurred' })
       }
+    })
+})
+
+router.get('/user', (req, res) => {
+  const jwt = req.cookies.jwt
+  if (!jwt) return res.status(200).send({})
+  else
+    usersRepository.getById(getUserIdFromJwt(jwt)).then(userData => {
+      res.status(200).send(userData)
     })
 })
 
