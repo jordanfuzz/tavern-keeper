@@ -1,17 +1,13 @@
 {
   "name": "tavern-keeper",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "Monorepo for the Tavern Keeper Discord bot",
   "main": "index.js",
   "scripts": {
-    "test": "mocha --config ./test/mocharc.yml",
-    "start": "docker-compose up -d --force-recreate",
+    "postinstall": "(cd api && bun install); (cd bot && bun install); (cd app && bun install);",
+    "start": "docker-compose up -d --build",
     "stop": "docker-compose down"
   },
   "author": "jordan@cooperplanet.com",
-  "license": "ISC",
-  "devDependencies": {
-    "chai": "^4.2.0",
-    "mocha": "^8.2.0"
-  }
+  "license": "ISC"
 }

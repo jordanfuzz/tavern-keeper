@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Redirect } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import { useUser } from '../../context/user-context'
 import Header from '../header/header'
 import './home.scss'
@@ -11,6 +11,7 @@ const Home = () => {
   const [selectedNpc, setSelectedNpc] = useState(null)
   const [activeChannel, setActiveChannel] = useState(null)
   const { userId } = useUser()
+  const navigate = useNavigate()
 
   const handleNpcSelect = npcData => {
     setSelectedNpc(npcData)
@@ -20,9 +21,13 @@ const Home = () => {
     setSelectedNpc(null)
   }
 
+  if (!userId) {
+    navigate('/login')
+    return null
+  }
+
   return (
     <div className="background">
-      {!userId ? <Redirect to="/login" /> : null}
       {selectedNpc ? (
         <Impersonate
           activeChannel={activeChannel}

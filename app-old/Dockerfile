@@ -8,4 +8,6 @@ RUN bun install --quiet
 
 COPY . .
 
-CMD ["bun run", "./src"]
+EXPOSE 3000
+
+CMD ["bun", "start"]

@@ -18,9 +18,7 @@ module.exports = {
   devServer: {
     host: '0.0.0.0',
     port: 3000,
-    proxy: { '/api': 'http://api:3002' },
-    stats: 'errors-only',
-    overlay: true,
+    proxy: [{ context: ['/api'], target: 'http://api:3002' }],
     historyApiFallback: {
       index: '/',
     },
@@ -64,12 +62,8 @@ module.exports = {
         use: [MiniCssExtractPlugin.loader, 'css-loader'],
       },
       {
-        test: /\.(png|jpe?g|gif)$/i,
-        use: [
-          {
-            loader: 'file-loader',
-          },
-        ],
+        test: /\.(png|jpe?g|svg|gif)$/i,
+        type: 'asset/resource',
       },
     ],
   },

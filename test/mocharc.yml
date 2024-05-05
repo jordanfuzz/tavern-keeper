@@ -1,2 +1,0 @@
-require: 'chai/register-expect'
-spec: 'src/**/*.specs.js'

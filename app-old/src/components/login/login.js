@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { Redirect } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import './login.scss'
 import { useUser } from '../../context/user-context'
 import axios from 'axios'
@@ -10,6 +10,7 @@ const Login = () => {
   const [password, setPassword] = useState('')
   const [message, setMessage] = useState(null)
   const { userId, setUserId } = useUser()
+  const navigate = useNavigate()
 
   useEffect(() => {
     axios.get('/api/user').then(res => setUserId(res.data?.id))
@@ -31,9 +32,10 @@ const Login = () => {
       })
   }
 
+  if (userId) navigate('/')
+
   return (
     <div className="background">
-      {userId ? <Redirect to="/" /> : null}
       <div className="form-container">
         <img src={mug} className="header-image-small" />
         <h1 className="header-text-small">Tavern Keeper</h1>

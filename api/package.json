@@ -6,16 +6,15 @@
   "author": "jordan@cooperplanet.com",
   "license": "ISC",
   "dependencies": {
-    "aws-sdk": "^2.792.0",
-    "axios": "^0.21.1",
-    "bcrypt": "^5.0.1",
-    "body-parser": "^1.19.0",
-    "camelize": "^1.0.0",
-    "cookie-parser": "^1.4.5",
-    "dotenv": "^8.2.0",
-    "express": "^4.17.1",
-    "jsonwebtoken": "^8.5.1",
-    "pg": "^8.4.1",
-    "uuid": "^8.3.1"
+    "aws-sdk": "^2.1597.0",
+    "axios": "^1.6.8",
+    "bcrypt": "^5.1.1",
+    "body-parser": "^1.20.2",
+    "camelize": "^1.0.1",
+    "cookie-parser": "^1.4.6",
+    "dotenv": "^16.4.5",
+    "express": "^4.19.2",
+    "jsonwebtoken": "^9.0.2",
+    "pg": "^8.11.5"
   }
 }

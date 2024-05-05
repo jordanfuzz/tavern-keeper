@@ -1,15 +1,13 @@
-FROM mhart/alpine-node:12.16.2
+FROM oven/bun:alpine
 
 WORKDIR /app
 
-COPY package.json package-lock.json ./
+COPY package.json bun.lockb ./
 
-RUN npm install --quiet
-
-RUN npm install -g nodemon
+RUN bun install --quiet
 
 COPY . .
 
 EXPOSE 3002
 
-CMD ["node", "./src"]
+CMD ["bun run", "./src"]

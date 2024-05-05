@@ -6,12 +6,7 @@ services:
     env_file: /home/tavern-keeper/host-files/.env
     depends_on:
       - postgres
-    deploy:
-      restart_policy:
-        condition: on-failure
-        delay: 5s
-        max_attempts: 10
-        window: 60s
+    restart: always
   postgres:
     image: postgres:12.3-alpine
     env_file: /home/tavern-keeper/host-files/.env
@@ -19,12 +14,7 @@ services:
       - '5432:5432'
     volumes:
       - /home/tavern-keeper/host-files/postgres-data:/var/lib/postgresql/data
-    deploy:
-      restart_policy:
-        condition: on-failure
-        delay: 5s
-        max_attempts: 10
-        window: 60s
+    restart: always
   ui:
     image: ${CONTAINER_IMAGE}-ui:${CI_COMMIT_SHORT_SHA}
     env_file: /home/tavern-keeper/host-files/.env
@@ -33,20 +23,10 @@ services:
       - api
     ports:
       - '80:80'
-    deploy:
-      restart_policy:
-        condition: on-failure
-        delay: 5s
-        max_attempts: 10
-        window: 60s
+    restart: always
   api:
     image: ${CONTAINER_IMAGE}-api:${CI_COMMIT_SHORT_SHA}
     env_file: /home/tavern-keeper/host-files/.env
     ports:
       - '3002:3002'
-    deploy:
-      restart_policy:
-        condition: on-failure
-        delay: 5s
-        max_attempts: 10
-        window: 60s
+    restart: always
