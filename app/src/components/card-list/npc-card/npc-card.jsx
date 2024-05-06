@@ -1,5 +1,5 @@
 import React from 'react'
-import './npc-card.scss'
+import './npc-card.css'
 
 const NpcCard = props => {
   return (

@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react'
-import NpcCard from './npc-card/npc-card'
-import NewCard from './new-card/new-card'
+import NpcCard from './npc-card/npc-card.jsx'
+import NewCard from './new-card/new-card.jsx'
 import axios from 'axios'
-import './card-list.scss'
+import './card-list.css'
 
 const defaultNPCs = []
 

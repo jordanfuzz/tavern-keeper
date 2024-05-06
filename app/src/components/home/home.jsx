@@ -1,11 +1,11 @@
 import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { useUser } from '../../context/user-context'
-import Header from '../header/header'
-import './home.scss'
-import CardList from '../card-list/card-list'
-import Impersonate from '../impersonate/impersonate'
-import ChannelList from '../channel-list/channel-list'
+import { useUser } from '../../context/user-context.jsx'
+import Header from '../header/header.jsx'
+import './home.css'
+import CardList from '../card-list/card-list.jsx'
+import Impersonate from '../impersonate/impersonate.jsx'
+import ChannelList from '../channel-list/channel-list.jsx'
 
 const Home = () => {
   const [selectedNpc, setSelectedNpc] = useState(null)

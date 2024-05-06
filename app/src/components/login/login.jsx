@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
-import './login.scss'
-import { useUser } from '../../context/user-context'
+import './login.css'
+import { useUser } from '../../context/user-context.jsx'
 import axios from 'axios'
-import mug from '../../../media/mug.png'
+import mug from '../../media/mug.png'
 
 const Login = () => {
   const [username, setUsername] = useState('')

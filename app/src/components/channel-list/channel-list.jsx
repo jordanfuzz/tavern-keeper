@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import './channel-list.scss'
+import './channel-list.css'
 import axios from 'axios'
 
 const ChannelList = props => {

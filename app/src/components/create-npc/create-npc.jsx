@@ -1,9 +1,9 @@
 import React, { useState, useRef, useEffect, useCallback } from 'react'
 import ReactCrop from 'react-image-crop'
 import { useNavigate } from 'react-router-dom'
-import { useUser } from '../../context/user-context'
+import { useUser } from '../../context/user-context.jsx'
 // import 'react-image-crop/lib/ReactCrop.scss'
-import './create-npc.scss'
+import './create-npc.css'
 import axios from 'axios'
 
 const defaultNpcData = {

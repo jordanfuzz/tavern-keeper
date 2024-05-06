@@ -1,6 +1,6 @@
 import React from 'react'
-import './header.scss'
-import mug from '../../../media/mug.png'
+import './header.css'
+import mug from '../../media/mug.png'
 
 const Header = props => {
   return (

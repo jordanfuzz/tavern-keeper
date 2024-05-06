@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import './impersonate.scss'
+import './impersonate.css'
 import axios from 'axios'
 
 const Impersonate = props => {
