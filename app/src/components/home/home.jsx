@@ -26,25 +26,22 @@ const Home = () => {
   }
 
   return (
-    // <div className="background">
-    //   {selectedNpc ? (
-    //     <Impersonate
-    //       activeChannel={activeChannel}
-    //       npcData={selectedNpc}
-    //       handleClose={handleClose}
-    //     />
-    //   ) : (
-    //     <div>
-    //       <Header />
-    //       <div className="main-container">
-    //         <ChannelList setActiveChannel={setActiveChannel} />
-    //         <CardList handleNpcSelect={handleNpcSelect} />
-    //       </div>
-    //     </div>
-    //   )}
-    // </div>
-    <div>
-      Hi
+    <div className="background">
+      {selectedNpc ? (
+        <Impersonate
+          activeChannel={activeChannel}
+          npcData={selectedNpc}
+          handleClose={handleClose}
+        />
+      ) : (
+        <div>
+          <Header />
+          <div className="main-container">
+            <ChannelList setActiveChannel={setActiveChannel} />
+            <CardList handleNpcSelect={handleNpcSelect} />
+          </div>
+        </div>
+      )}
     </div>
   )
 }

@@ -16,6 +16,10 @@ const Login = () => {
     // axios.get('/api/create-user')
   }, [])
 
+  useEffect(() => {
+    if (userId) navigate('/')
+  }, [userId])
+
   const handlePasswordChange = value => {
     setPassword(value)
   }
@@ -31,8 +35,6 @@ const Login = () => {
         else setMessage(res.data.message)
       })
   }
-
-  if (userId) navigate('/')
 
   return (
     <div className="background">

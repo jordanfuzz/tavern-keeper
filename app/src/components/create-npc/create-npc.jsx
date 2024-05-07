@@ -35,6 +35,16 @@ const CreateNpc = () => {
   const previewCanvasRef = useRef(null)
   const { userId } = useUser()
 
+useEffect(() => {
+  if (shouldRedirect) {
+    navigate('/')
+  }
+
+  if (!userId) {
+    navigate('/login')
+  }
+}, [shouldRedirect, userId])
+
   const handleNpcNameChange = value => {
     setNpcData(Object.assign({}, npcData, { name: value }))
   }
@@ -143,16 +153,6 @@ const CreateNpc = () => {
       crop.height
     )
   }, [completedCrop])
-
-  if (shouldRedirect) {
-    navigate('/')
-    return null
-  }
-
-  if (!userId) {
-    navigate('/login')
-    return null
-  }
 
   return (
     <div className="create-npc-container">
