@@ -22,9 +22,10 @@ services:
     env_file: .env
   api:
     build: ./api
-    command: bun --hot ./src
+    command: nodemon ./src
     ports:
       - '3002:3002'
     volumes:
       - ./api:/app
+      - /app/node_modules
     env_file: .env

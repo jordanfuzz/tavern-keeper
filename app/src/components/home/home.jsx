@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useUser } from '../../context/user-context.jsx'
 import Header from '../header/header.jsx'
@@ -13,6 +13,10 @@ const Home = () => {
   const { userId } = useUser()
   const navigate = useNavigate()
 
+  useEffect(() => {
+    if (!userId) navigate('/login')
+  }, [userId])
+
   const handleNpcSelect = npcData => {
     setSelectedNpc(npcData)
   }
@@ -21,28 +25,26 @@ const Home = () => {
     setSelectedNpc(null)
   }
 
-  if (!userId) {
-    navigate('/login')
-    return null
-  }
-
   return (
-    <div className="background">
-      {selectedNpc ? (
-        <Impersonate
-          activeChannel={activeChannel}
-          npcData={selectedNpc}
-          handleClose={handleClose}
-        />
-      ) : (
-        <div>
-          <Header />
-          <div className="main-container">
-            <ChannelList setActiveChannel={setActiveChannel} />
-            <CardList handleNpcSelect={handleNpcSelect} />
-          </div>
-        </div>
-      )}
+    // <div className="background">
+    //   {selectedNpc ? (
+    //     <Impersonate
+    //       activeChannel={activeChannel}
+    //       npcData={selectedNpc}
+    //       handleClose={handleClose}
+    //     />
+    //   ) : (
+    //     <div>
+    //       <Header />
+    //       <div className="main-container">
+    //         <ChannelList setActiveChannel={setActiveChannel} />
+    //         <CardList handleNpcSelect={handleNpcSelect} />
+    //       </div>
+    //     </div>
+    //   )}
+    // </div>
+    <div>
+      Hi
     </div>
   )
 }

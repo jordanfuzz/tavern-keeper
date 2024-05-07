@@ -1,13 +1,15 @@
-FROM oven/bun:alpine
+FROM node:20
 
 WORKDIR /app
 
-COPY package.json bun.lockb ./
+COPY package.json package-lock.json ./
 
-RUN bun install --quiet
+RUN npm install --quiet
+
+RUN npm install -g nodemon
 
 COPY . .
 
 EXPOSE 3002
 
-CMD ["bun run", "./src"]
+CMD ["nodemon", "./src"]
